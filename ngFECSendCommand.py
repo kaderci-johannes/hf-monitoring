@@ -51,9 +51,8 @@ def send_commands(port, control_hub, cmds, script=False, raw=False, time_out=10)
             with DelayedKeyboardInterrupt():
                 if not script:
                     for i, c in enumerate(cmds):
-#                       print('Sending command %i: %s' %(i+1,c))
+#                       print('Sending command #%i' %(i+1))
                         p.sendline(c)
-                        p.delaybeforesend = 0.
                         if c != "quit":
                             t0 = time()
                             p.expect("{0}\s?#((\s|E)[^\r^\n]*)".format(escape(c)))
@@ -64,6 +63,7 @@ def send_commands(port, control_hub, cmds, script=False, raw=False, time_out=10)
                                     "times": [t0, t1],
                             })
                             raw_output += p.before + p.after
+                        p.delaybeforesend = 0.
                 else:
                     p.sendline("< {0}".format(file_script))
                     for i, c in enumerate(cmds):
