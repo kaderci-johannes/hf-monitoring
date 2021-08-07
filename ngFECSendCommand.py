@@ -46,10 +46,12 @@ def send_commands(port, control_hub, cmds, script=False, raw=False, time_out=10)
 
         # Send the ngfec commands:
         p = pexpect.spawn(ngfec_cmd, timeout=time_out)
+#       p.delaybeforesend = 0.03
         try:
             with DelayedKeyboardInterrupt():
                 if not script:
                     for i, c in enumerate(cmds):
+#                       print('Sending command %i: %s' %(i+1,c))
                         p.sendline(c)
                         p.delaybeforesend = 0.
                         if c != "quit":
