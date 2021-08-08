@@ -51,8 +51,8 @@ def send_commands(port, control_hub, cmds, script=False, raw=False, time_out=10)
             with DelayedKeyboardInterrupt():
                 if not script:
                     for i, c in enumerate(cmds):
-                        if i<3:
-                          print(i+1)
+#                       if i<3:
+#                         print(i+1)
                         p.sendline(c)
                         if c != "quit":
                             t0 = time()
